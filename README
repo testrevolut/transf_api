@@ -1,49 +1,46 @@
-This is your new Play application
+This is a basic  Play application that implements simple banking transfer API
 =================================
-
-This file will be packaged with your application when using `activator dist`.
-
-There are several demonstration files available in this template.
 
 Controllers
 ===========
 
-- HomeController.scala:
+- Transfer -- the only controller that accepts either GET queries withou any body processing (list all accounts, show exchange
+rates etc), or POST queries with Json formatted request body that supplies info that is to be returned. 
 
-  Shows how to handle simple HTTP requests.
-
-- AsyncController.scala:
-
-  Shows how to do asynchronous programming when handling a request.
-
-- CountController.scala:
-
-  Shows how to inject a component into a controller and use the component when
-  handling requests.
+We use OK (200), Conflict(409) -- in case of data in conflict with data store (i.e. request for impossible operation),  
+UnprocessableEntity(422) for wrong incoming data and BadRequest when everything else fails.
 
 Components
 ==========
+Folder services contains the classes for manipulating and storing data. There is also a class for online checking of 
+the current exchange rates. Incoming JSON data is validated class JsonProcessing, actual data store is in DataItself,
+pseudo interface to that DataStore and actual processing of the requests are done by DataStorage. There auxillary classes 
+that keep information about account policies etc.
 
-- Module.scala:
+The simplified data model consists of two entites: Accounts and Clients. A client can possess more that one accout, 
+the clients are identified by name and surname (assumed that these are unique combinations). Different types of accounts
+and available currencies are described in Account.scala file. 
 
-  Shows how to use Guice to bind all the components needed by your application.
+A person can transfer money in any currency from his/her account, but he/she can only receive transfers in currencies for
+which he/she has a corresponding account (i.e. a person with accounts in RUB,EUR can not receive transfers in GBP). When a 
+client is added he/she has a default account set up, later more accounts can be added. Money can be deposited into an account. 
+There is no route (endpoint) for withdrawing money (yet this obviously happens during transfer).
 
-- Counter.scala:
+There are required fields for JSON requests for different operations, the validation and corresponding case classes are in 
+JsonProcessing.scala file.
 
-  An example of a component that contains state, in this case a simple counter.
 
-- ApplicationTimer.scala:
+Views
+==========
+To demonstrate that Play is quite a flexble framework one "fancy" html view is included-- it is produced in case of 
+requesting endpoint xe without specifying "format":"json" in header. 
 
-  An example of a component that starts when the application starts and stops
-  when the application stops.
+Running
+===========
+This is an sbt project which should be possible to run by executing 
 
-Filters
-=======
+sbt run
 
-- Filters.scala:
+from root directory. 
 
-  Creates the list of HTTP filters used by your application.
-
-- ExampleFilter.scala
-
-  A simple filter that adds a header to every response.
+A companion script for testing is available at the same github account in repository testTransferApis
