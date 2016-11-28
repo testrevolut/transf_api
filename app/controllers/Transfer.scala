@@ -2,30 +2,15 @@ package controllers
 
 import javax.inject._
 
-import akka.actor.Status.Success
-import jdk.nashorn.internal.ir.ObjectNode
-import org.json4s.JsonAST.JString
-import play.api.data._
 import play.api.libs.ws.{WSClient, WSRequest}
 import play.api.mvc._
 import play.api.data._
-import play.api.data.Forms._
-import play.api.i18n.I18nSupport
-import play.i18n.MessagesApi
 import play._
 
-import scala.collection.mutable.ListBuffer
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.Failure
 import play.api.libs.json.{JsObject, _}
-import play.api.mvc.BodyParsers.parse
 import services.{Currency, _}
 import play.api.libs.json._
-import play.api.libs.json.Reads._
-import play.api.libs.functional.syntax._
-import play.api.libs.json
-import services.AccountType.AccountType
-import services.Currency.CurrencyType
+
 //import services.JsonProcessing.{NewAccRequest, NewCustomerRequest, TransactionRequestMessage, TransferRequestMessage} // Combinator syntax
 
 /**
