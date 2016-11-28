@@ -3,14 +3,31 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
+#GET     /                           controllers.HomeController.index
 # An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
+#GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
-GET 	/helloworld                 controllers.HelloWorld.index
+#GET     /message                    controllers.AsyncController.message
+#GET 	/helloworld                 controllers.HelloWorld.index
+#GET     /transfer                   controllers.Transfer.transfer
+#POST     /add                        controllers.Transfer.add
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-                
+#GET     /track                      controllers.TNTQ.track(q: String ?= "")
+#GET     /shipment                   controllers.TNTQ.shipment(q: String ?= "")
+#GET     /pricing                    controllers.TNTQ.pricing(q: String ?= "")
 
+#GET     /wall                       controllers.TNTQ.giveWall
 
+GET     /xe                         controllers.Transfer.getCurrencyExchanges
+
+GET     /jsonxe                     controllers.Transfer.getCurrencyExchanges
+GET     /accounts                   controllers.Transfer.listAccounts
+GET     /clients                    controllers.Transfer.listClients
+
+POST     /client                      controllers.Transfer.addClient
+POST     /account                    controllers.Transfer.addAccount
+POST     /getaccount                 controllers.Transfer.getAccount
+POST     /deposit                    controllers.Transfer.deposit
+POST     /transfer                   controllers.Transfer.transfer
